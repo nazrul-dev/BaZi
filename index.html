@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BaZi Chart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+
+        
+        html {
+            height: '95%';
+            background-color: rgba(255, 0, 0, 0.025);
+            background-image: url(bg/bg.jpg);
+            background-size: 100% auto;
+            background-position: top center;
+            background-attachment: fixed;
+        }
+
+        ::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+            background-color: #F5F5F5;
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+            background-color: #f5f5f500;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+            background-color: #881337;
+        }
+    </style>
+</head>
+
+<body x-data="root">
+
+    <div>
+        <div class="flex md:flex-row flex-col flex-col-reverse h-full  justify-center p-2 md:p-10 gap-5">
+            <div class="md:w-96 bg-gray-100 bg-opacity-50 p-2 rounded-lg">
+                <div class="grid grid-cols-3  font-semibold rounded-lg gap-2 pr-5">
+                    <div
+                        class="text-white text-center  bg-rose-900 flex flex-col items-center justify-center rounded-lg p-2 text-sm">
+                        Earthly Branches
+                    </div>
+                    <div
+                        class="text-white text-center  bg-rose-900 flex flex-col items-center justify-center rounded-lg p-2 text-sm">
+                        Animal Sign
+                    </div>
+                    <div
+                        class="text-white text-center  bg-rose-900 flex flex-col items-center justify-center rounded-lg p-2 text-sm">
+                        Main Qi
+                    </div>
+                </div>
+                <div class="my-2 space-y-2 overflow-y-auto h-[80vh] pr-1 text-sm whitespace-nowrap">
+                    <template x-for="i in 12">
+                        <div class="grid grid-cols-3 font-semibold rounded-lg gap-2">
+                            <div class="border rounded-lg px-3 py-2 bg-white">
+                                <div class="flex justify-between items-center">
+                                    <img class="w-10 h-10" x-bind:src="'Branches/'+i+'.png'"
+                                        x-bind-alt="getLabelBranches(i)">
+                                    <div class="text-xs  text-gray-600 font-semibold" x-text="getLabelBranches(i)">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="border rounded-lg p-2 bg-white">
+                                <div class="flex justify-between items-center">
+                                    <img class="w-10 h-10" x-bind:src="'Earthly-Stem/'+i+'.jpg'"
+                                        x-bind-alt="getLabelEarthlyStem(i)">
+                                    <div class="text-xs  text-gray-600 font-semibold" x-text="getLabelEarthlyStem(i)">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="border rounded-lg p-2 bg-white">
+                                <div class="flex justify-between items-center px-2 py-2">
+                                    <div class="text-xs  text-gray-600 font-semibold" x-text="getLabelMainQI(i)"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+
+
+
+                </div>
+
+
+            </div>
+            <div class="md:flex-1">
+                <div class="bg-gray-100 bg-opacity-50 rounded-lg overflow-hidden">
+                    <div class="grid grid-cols-4 ">
+                        <template x-for="(column, index) in columns" :key="index">
+                            <div :class="index ===  3 ? ' ' : 'border-r' ">
+                                <div :class="index === 0 ? 'rounded-tl-lg ' : '' "
+                                    class="p-4 text-lg font-bold text-white bg-rose-900 uppercase"
+                                    x-text="column.title">
+                                </div>
+                                <!-- ROW 1 -->
+                                <div class="p-2 ">
+
+                                    <div class="h-20 md:h-56 bg-white rounded-lg">
+                                        <div class="flex justify-center h-full flex-col">
+                                            <div class="mx-auto">
+                                                <div x-show="column.data.g1 === null">
+                                                    <button class="group" @click="heavenlyBranchSelected(index, 1)">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                            data-slot="icon"
+                                                            class=" h-12 md:h-20 group-hover:text-gray-300 text-rose-900">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                                <template x-if="column.data.g1 !== null">
+                                                    <img @click="heavenlyBranchSelected(index, 1)"
+                                                    class="object-contain cursor-pointer w-auto md:h-32 h-10"
+                                                        x-bind:src="column.data.g1 ? getSplitData(column.data.g1) : 'default.jpg'"
+                                                        alt="">
+
+                                                </template>
+                                                <div class="m:py-2 py-1 md:text-base text-xs font-semibold text-center"
+                                                    x-text="getSplitData(column.data.g1,true)">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END ROW 1 -->
+                                <!-- ROW 2 -->
+                                <div class="p-2 ">
+                                    <div class="h-20 md:h-56 bg-white rounded-lg">
+                                        <div class="flex justify-center h-full flex-col">
+                                            <div class="mx-auto">
+                                                <div x-show="column.data.g2 === null">
+                                                    <button class="group" @click="earthlyStemSelected(index, 2)">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                            data-slot="icon"
+                                                            class=" h-12 md:h-20 group-hover:text-gray-300 text-rose-900">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                                <template x-if="column.data.g2 !== null">
+                                                    <img @click="earthlyStemSelected(index, 2)"
+                                                        class="object-contain cursor-pointer w-auto md:h-32 h-10"
+                                                        x-bind:src="column.data.g2 ? getSplitData(column.data.g2) : 'default.jpg'"
+                                                        alt="">
+
+                                                </template>
+                                                <div class="m:py-2 py-1 md:text-base text-xs font-semibold text-center"
+                                                    x-text="getSplitData(column.data.g2,true)">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END ROW 2 -->
+                                <!-- ROW 3-5 -->
+                                <div class="p-2 ">
+                                    <div class="grid md:grid-cols-3 gap-3">
+
+                                        <div class="h-10 md:h-20 bg-white rounded-lg">
+                                            <div class="flex justify-center h-full flex-col">
+                                                <div class="mx-auto">
+                                                    <div x-show="column.data.g3 === null">
+                                                        <button class="group" @click="heavenlyBranchSelected(index, 3)">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                viewBox="0 0 24 24" stroke-width="1.5"
+                                                                stroke="currentColor" data-slot="icon"
+                                                                class=" w-5 h-5 group-hover:text-gray-300 text-rose-900">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                    <template x-if="column.data.g3 !== null">
+                                                        <img @click="heavenlyBranchSelected(index, 3)"
+                                                            class="cursor-pointer w-auto h-5 md:h-10"
+                                                            x-bind:src="column.data.g3 ? getSplitData(column.data.g3) : 'default.jpg'"
+                                                            alt="">
+
+                                                    </template>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="h-10 md:h-20 bg-white rounded-lg">
+                                            <div class="flex justify-center h-full flex-col">
+                                                <div class="mx-auto">
+                                                    <div x-show="column.data.g4 === null">
+                                                        <button class="group" @click="heavenlyBranchSelected(index, 4)">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                viewBox="0 0 24 24" stroke-width="1.5"
+                                                                stroke="currentColor" data-slot="icon"
+                                                                class=" w-5 h-5 group-hover:text-gray-300 text-rose-900">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                    <template x-if="column.data.g4 !== null">
+                                                        <img @click="heavenlyBranchSelected(index, 4)"
+                                                            class="cursor-pointer w-auto h-5 md:h-10"
+                                                            x-bind:src="column.data.g4 ? getSplitData(column.data.g4) : 'default.jpg'"
+                                                            alt="">
+                                                    </template>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="h-10 md:h-20 bg-white rounded-lg">
+                                            <div class="flex justify-center h-full flex-col">
+                                                <div class="mx-auto">
+                                                    <div x-show="column.data.g5 === null">
+                                                        <button class="group" @click="heavenlyBranchSelected(index, 5)">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                viewBox="0 0 24 24" stroke-width="1.5"
+                                                                stroke="currentColor" data-slot="icon"
+                                                                class=" w-5 h-5 group-hover:text-gray-300 text-rose-900">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                    <template x-if="column.data.g5 !== null">
+                                                        <img @click="heavenlyBranchSelected(index, 5)"
+                                                            class="cursor-pointer w-auto h-5 md:h-10"
+                                                            x-bind:src="column.data.g5 ? getSplitData(column.data.g5) : 'default.jpg'"
+                                                            alt="">
+                                                    </template>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!--END ROW 3-5 -->
+                            </div>
+                        </template>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    <div x-show="modalHeavenlyBranch" @click.away="modalHeavenlyBranch = false" class="fixed inset-0 overflow-y-auto"
+    style="display: none; background: rgba(0, 0, 0, 0.5);">
+    <div class="flex items-center justify-center min-h-screen">
+        <div class="bg-gray-50 p-6 md:w-1/2 rounded-lg shadow-md">
+            <!-- Modal content -->
+            <div class="border-b pb-2">
+                <div class="flex justify-between items-center font-semibold text-lg">
+                    Heavenly Stems
+                    <div>
+                        <svg @click="modalHeavenlyBranch = false" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" data-slot="icon"
+                            class="w-10 h-10 rotate-45 hover:text-rose-900 cursor-pointer">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-3 md:grid-cols-5 gap-2 mt-2">
+                <template x-for="i in 10">
+                    <button @click="heavenlyBranchTriggerSelected(i)"
+                        class="border hover:border-rose-900 bg-white flex justify-center items-center flex-col p-2 rounded-lg">
+                        <img class="w-20 h-10 md:h-20 object-contain" x-bind:src="'Heavenly-Branch/'+i+'.jpg'"
+                            alt="">
+                        <div class="text-xs py-2  text-gray-600 font-semibold" x-text="getLabelHeavenly(i)">
+                        </div>
+                    </button>
+                </template>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<div x-show="modalEarthlyStem" @click.away="modalEarthlyStem = false" class="fixed inset-0 overflow-y-auto"
+    style="display: none; background: rgba(0, 0, 0, 0.5);">
+    <div class="flex items-center justify-center min-h-screen">
+        <div class="bg-gray-50 p-6 md:w-1/2 rounded-lg shadow-md">
+
+            <div class="border-b pb-2">
+                <div class="flex justify-between items-center font-semibold text-lg">
+                    Earthly Stem
+                    <div>
+                        <svg @click="modalEarthlyStem = false" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" data-slot="icon"
+                            class="w-10 h-10 rotate-45 hover:text-rose-900 cursor-pointer">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-3 md:grid-cols-4 gap-2 mt-2">
+                <template x-for="i in 12">
+                    <button @click="earthlyStemTriggerSelected(i)"
+                        class="border hover:border-rose-900 bg-white flex justify-center items-center flex-col p-2 rounded-lg">
+                        <img class="w-20 h-10 md:h-20 object-contain" x-bind:src="'Earthly-Stem/'+i+'.jpg'" alt="">
+                        <div class="text-xs py-2  text-gray-600 font-semibold" x-text="getLabelEarthlyStem(i)">
+                        </div>
+
+                    </button>
+                </template>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+    </div>
+
+
+
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('root', () => ({
+                modalHeavenlyBranch: false,
+                modalEarthlyStem: false,
+                parent: '',
+                child: '',
+                columns: [
+                    {
+                        title: 'Hour',
+                        data: {
+                            g1: null,
+                            g2: null,
+                            g3: null,
+                            g4: null,
+                            g5: null,
+                        },
+                    },
+                    {
+                        title: 'Date',
+                        data: {
+                            g1: null,
+                            g2: null,
+                            g3: null,
+                            g4: null,
+                            g5: null,
+                        },
+                    },
+                    {
+                        title: 'Month',
+                        data: {
+                            g1: null,
+                            g2: null,
+                            g3: null,
+                            g4: null,
+                            g5: null,
+                        },
+                    },
+                    {
+                        title: 'Year',
+                        data: {
+                            g1: null,
+                            g2: null,
+                            g3: null,
+                            g4: null,
+                            g5: null,
+                        },
+                    },
+                ],
+
+                heavenlyBranchSelected(parent, child) {
+
+                    this.modalHeavenlyBranch = true;
+                    this.parent = parent;
+                    this.child = 'g' + (child);
+                },
+
+                heavenlyBranchTriggerSelected(value) {
+
+                    const getLabel = this.getLabelHeavenly(value)
+                    this.columns[this.parent].data[this.child] = 'Heavenly-Branch/' + value + '.jpg,' + getLabel;
+                    this.modalHeavenlyBranch = false;
+                    this.child = null
+                    this.parent = null
+
+
+                },
+
+                earthlyStemSelected(parent, child) {
+
+                    this.modalEarthlyStem = true;
+                    this.parent = parent;
+                    this.child = 'g' + (child);
+                },
+
+                earthlyStemTriggerSelected(value) {
+
+                    const getLabel = this.getLabelEarthlyStem(value)
+                    this.columns[this.parent].data[this.child] = 'Earthly-Stem/' + value + '.jpg,' + getLabel;
+                    this.modalEarthlyStem = false;
+                    this.child = null
+                    this.parent = null
+
+                },
+                getLabelEarthlyStem(value) {
+
+                    switch (value) {
+                        case 1:
+                            return "Rat";
+                        case 2:
+                            return "Ox";
+                        case 3:
+                            return "Tiger";
+                        case 4:
+                            return "Rabbit";
+                        case 5:
+                            return "Dragon";
+                        case 6:
+                            return "Snake";
+                        case 7:
+                            return "Horse";
+                        case 8:
+                            return "Goat";
+                        case 9:
+                            return "Monkey";
+                        case 10:
+                            return "Rooster";
+                        case 11:
+                            return "Dog";
+                        case 12:
+                            return "Pig";
+                        default:
+                            return "Unknown";
+                    }
+
+                },
+
+                getLabelMainQI(value) {
+
+                    switch (value) {
+                        case 1:
+                            return "Yin Water";
+                        case 2:
+                            return "Yin Earth";
+                        case 3:
+                            return "Yang Wood";
+                        case 4:
+                            return "Yin Wood";
+                        case 5:
+                            return "Yang Earth";
+                        case 6:
+                            return "Yang Fire";
+                        case 7:
+                            return "Yin Fire";
+                        case 8:
+                            return "Yin Earth";
+                        case 9:
+                            return "Yang Metal";
+                        case 10:
+                            return "Yin Metal";
+                        case 11:
+                            return "Yang Earth";
+                        case 12:
+                            return "Yang Water";
+                        default:
+                            return "Unknown";
+                    }
+
+                },
+
+                getLabelBranches(value) {
+                    switch (value) {
+                        case 1:
+                            return "Zi";
+                        case 2:
+                            return "Chou";
+                        case 3:
+                            return "Yin";
+                        case 4:
+                            return "Mao";
+                        case 5:
+                            return "Chen";
+                        case 6:
+                            return "Si";
+                        case 7:
+                            return "Wu";
+                        case 8:
+                            return "Wei";
+                        case 9:
+                            return "Shen";
+                        case 10:
+                            return "You";
+                        case 11:
+                            return "Xu";
+                        case 12:
+                            return "Hai";
+                        default:
+                            return "Unknown";
+                    }
+                },
+
+                getLabelHeavenly(value) {
+                    switch (value) {
+                        case 1:
+                            return "Jia";
+                        case 2:
+                            return "Yi";
+                        case 3:
+                            return "Bing";
+                        case 4:
+                            return "Ding";
+                        case 5:
+                            return "Wu";
+                        case 6:
+                            return "Ji";
+                        case 7:
+                            return "Geng";
+                        case 8:
+                            return "Xin";
+                        case 9:
+                            return "Ren";
+                        case 10:
+                            return "Gui";
+                        default:
+                            return "Unknown";
+                    }
+                },
+
+                getSplitData(value, type = false) {
+                    if (value) {
+                        const arrayData = value.split(',')
+                        if (!type) {
+                            return arrayData[0]
+                        } else {
+                            return arrayData[1]
+                        }
+                    }
+
+                    return '';
+
+                }
+
+            }))
+        })
+    </script>
+</body>
+
+</html>
