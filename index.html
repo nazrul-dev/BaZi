@@ -144,7 +144,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                                 <!-- END ROW 1 -->
                                 <!-- ROW 2 -->
@@ -255,7 +255,7 @@
 
                                     </div>
                                 </div>
-                               
+
                                 <!--END ROW 3-5 -->
                             </div>
                         </template>
@@ -278,39 +278,41 @@
         <div x-show="modalHeavenlyBranch" @click.away="modalHeavenlyBranch = false"
             class="fixed inset-0 overflow-y-auto" style="display: none; background: rgba(0, 0, 0, 0.5);">
             <div class="flex items-center justify-center min-h-screen">
-                <div class="bg-gray-50 p-6 lg:w-1/2 rounded-lg shadow-md">
+                <div class=" p-5 lg:w-1/2 w-full  shadow-md">
                     <!-- Modal content -->
-                    <div class="border-b pb-2">
-                        <div class="flex justify-between items-center font-semibold text-lg">
+                    <div class="bg-gray-50 rounded lg:p-6 p-2">
+                        <div class="border-b pb-2">
+                            <div class="flex justify-between items-center font-semibold text-lg">
 
-                            <div x-show="rowOpen > 2">
-                                Hidden Stems
+                                <div x-show="rowOpen > 2">
+                                    Hidden Stems
 
-                            </div>
-                            <div x-show="rowOpen < 3">
-                                Heavenly Stems
-                            </div>
-                            <div>
-                                <svg @click="modalHeavenlyBranch = false" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" data-slot="icon"
-                                    class="w-10 h-10 rotate-45 hover:text-rose-900 cursor-pointer">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                </svg>
+                                </div>
+                                <div x-show="rowOpen < 3">
+                                    Heavenly Stems
+                                </div>
+                                <div>
+                                    <svg @click="modalHeavenlyBranch = false" xmlns="http://www.w3.org/2000/svg"
+                                        fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                        data-slot="icon" class="w-10 h-10 rotate-45 hover:text-rose-900 cursor-pointer">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                    </svg>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="grid grid-cols-3 lg:grid-cols-5 gap-2 mt-2">
-                        <template x-for="i in 10">
-                            <button @click="heavenlyBranchTriggerSelected(i)"
-                                class="border hover:border-rose-900 bg-white flex justify-center items-center flex-col p-2 rounded-lg">
-                                <img class="w-20 h-10 lg:h-20 object-contain" x-bind:src="'Heavenly-Branch/'+i+'.jpg'"
-                                    alt="">
-                                <div class="text-xs py-2  text-gray-600 font-semibold" x-text="getLabelHeavenly(i)">
-                                </div>
-                            </button>
-                        </template>
+                        <div class="grid grid-cols-5 lg:grid-cols-5 gap-2 mt-2">
+                            <template x-for="i in 10">
+                                <button @click="heavenlyBranchTriggerSelected(i)"
+                                    class="border hover:border-rose-900 bg-white flex justify-center items-center flex-col p-2 rounded-lg">
+                                    <img class="w-20 h-10 lg:h-20 object-contain"
+                                        x-bind:src="'Heavenly-Branch/'+i+'.jpg'" alt="">
+                                    <div class="text-xs py-2  text-gray-600 font-semibold" x-text="getLabelHeavenly(i)">
+                                    </div>
+                                </button>
+                            </template>
 
+                        </div>
                     </div>
 
                 </div>
@@ -319,34 +321,35 @@
         <div x-show="modalEarthlyStem" @click.away="modalEarthlyStem = false" class="fixed inset-0 overflow-y-auto"
             style="display: none; background: rgba(0, 0, 0, 0.5);">
             <div class="flex items-center justify-center min-h-screen">
-                <div class="bg-gray-50 p-6 lg:w-1/2 rounded-lg shadow-md">
+                <div class=" p-5 lg:w-1/2 w-full  shadow-md">
 
-                    <div class="border-b pb-2">
-                        <div class="flex justify-between items-center font-semibold text-lg">
-                            Earthly Branches
-                            <div>
-                                <svg @click="modalEarthlyStem = false" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" data-slot="icon"
-                                    class="w-10 h-10 rotate-45 hover:text-rose-900 cursor-pointer">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                </svg>
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <div class="border-b pb-2">
+                            <div class="flex justify-between items-center font-semibold text-lg">
+                                Earthly Branches
+                                <div>
+                                    <svg @click="modalEarthlyStem = false" xmlns="http://www.w3.org/2000/svg"
+                                        fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                        data-slot="icon" class="w-10 h-10 rotate-45 hover:text-rose-900 cursor-pointer">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                    </svg>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="grid grid-cols-3 lg:grid-cols-4 gap-2 mt-2">
-                        <template x-for="i in 12">
-                            <button @click="earthlyStemTriggerSelected(i)"
-                                class="border hover:border-rose-900 bg-white flex justify-center items-center flex-col p-2 rounded-lg">
-                                <img class="w-20 h-10 lg:h-20 object-contain" x-bind:src="'Earthly-Stem/'+i+'.jpg'"
-                                    alt="">
-                                <div class="text-xs py-2  text-gray-600 font-semibold" x-text="getLabelEarthlyStem(i)">
-                                </div>
+                        <div class="grid grid-cols-3 lg:grid-cols-6 gap-1 mt-2">
+                            <template x-for="i in 12">
+                                <button @click="earthlyStemTriggerSelected(i)"
+                                    class="border hover:border-rose-900 bg-white flex justify-center items-center flex-col p-2 rounded-lg">
+                                    <img class="w-20 h-10 lg:h-20 object-contain" x-bind:src="'Earthly-Stem/'+i+'.jpg'"
+                                        alt="">
+                                    <div class="text-xs py-2  text-gray-600 font-semibold"
+                                        x-text="getLabelEarthlyStem(i)">
+                                    </div>
 
-                            </button>
-                        </template>
-
-
+                                </button>
+                            </template>
+                        </div>
                     </div>
 
                 </div>
