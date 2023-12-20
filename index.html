@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BaZi Chart</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     <style>
@@ -115,7 +115,7 @@
                                     x-text="column.title">
                                 </div>
                                 <!-- ROW 1 -->
-                                <div class="md:p-2 p-1 ">
+                                <div class="md:p-2 p-1 relative ">
 
                                     <div class="h-20 lg:h-40 bg-white rounded-lg">
                                         <div class="flex justify-center h-full flex-col">
@@ -144,6 +144,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    
                                 </div>
                                 <!-- END ROW 1 -->
                                 <!-- ROW 2 -->
@@ -181,7 +182,7 @@
                                 <div class="md:p-2 p-1 ">
                                     <div class="flex items-center gap-1">
 
-                                        <div class="h-8 lg:h-16 w-1/3 bg-white lg:rounded-lg rounded-sm ">
+                                        <div class="h-8 lg:h-16 w-2/4 bg-white lg:rounded-lg rounded-sm ">
                                             <div class="flex justify-center h-full flex-col">
                                                 <div class="mx-auto">
                                                     <div x-show="column.data.g3 === null">
@@ -205,7 +206,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="h-10 lg:h-24 w-2/3 bg-white lg:rounded-lg rounded-sm">
+                                        <div class="h-10 lg:h-16 w-3/4 bg-white lg:rounded-lg rounded-sm">
                                             <div class="flex justify-center h-full flex-col">
                                                 <div class="mx-auto">
                                                     <div x-show="column.data.g4 === null">
@@ -228,7 +229,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="h-8 lg:h-16 w-1/3 bg-white lg:rounded-lg rounded-sm">
+                                        <div class="h-8 lg:h-16 w-2/4 bg-white lg:rounded-lg rounded-sm">
                                             <div class="flex justify-center h-full flex-col">
                                                 <div class="mx-auto">
                                                     <div x-show="column.data.g5 === null">
@@ -254,22 +255,22 @@
 
                                     </div>
                                 </div>
+                               
                                 <!--END ROW 3-5 -->
                             </div>
                         </template>
-
                     </div>
                 </div>
             </div>
-            <div class="w-20 mb-20  justify-between flex-col text-white gap-10 lg:flex hidden">
-                <div class="rotate-90 mt-36 text-lg ">
-                    Heavenly Steams
+            <div class="pt-32 gap-32 flex-col justify-start items-start text-white gap-10 lg:flex hidden">
+                <div class="rotate-90   text-lg  ">
+                    Heavenly <br> Steams
                 </div>
-                <div class="rotate-90">
-                    Earthly Branches
+                <div class="rotate-90  ">
+                    Earthly <br> Branches
                 </div>
-                <div class="rotate-90">
-                    Hidden Stems
+                <div class="rotate-90  ">
+                    Hidden <br> Stems
                 </div>
             </div>
         </div>
@@ -282,11 +283,11 @@
                     <div class="border-b pb-2">
                         <div class="flex justify-between items-center font-semibold text-lg">
 
-                            <div x-show="rowOpen === 3">
+                            <div x-show="rowOpen > 2">
                                 Hidden Stems
 
                             </div>
-                            <div x-show="rowOpen !== 3">
+                            <div x-show="rowOpen < 3">
                                 Heavenly Stems
                             </div>
                             <div>
