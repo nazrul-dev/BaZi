@@ -46,15 +46,15 @@
                 <div class=" lg:pr-2 lg:mt-10">
                     <div class="grid grid-cols-3 bg-gray-50 p-2 font-semibold rounded-lg gap-2  ">
                         <div
-                            class="text-white text-center  bg-rose-900 flex flex-col items-center justify-center rounded-lg p-2 text-sm">
+                            class="text-white text-center lg:text-base text-sm  bg-rose-900 flex flex-col items-center justify-center rounded-lg p-2 text-sm">
                             Earthly Branches
                         </div>
                         <div
-                            class="text-white text-center  bg-rose-900 flex flex-col items-center justify-center rounded-lg p-2 text-sm">
+                            class="text-white text-center lg:text-base text-sm  bg-rose-900 flex flex-col items-center justify-center rounded-lg p-2 text-sm">
                             Animal Sign
                         </div>
                         <div
-                            class="text-white text-center  bg-rose-900 flex flex-col items-center justify-center rounded-lg p-2 text-sm">
+                            class="text-white text-center lg:text-base text-sm  bg-rose-900 flex flex-col items-center justify-center rounded-lg p-2 text-sm">
                             Main Qi
                         </div>
                     </div>
@@ -111,7 +111,7 @@
                         <template x-for="(column, index) in columns" :key="index">
                             <div :class="index ===  3 ? ' ' : 'border-r' ">
                                 <div :class="index === 0 ? 'rounded-tl-lg ' : '' "
-                                    class="p-4 text-lg font-bold text-white bg-rose-900 uppercase"
+                                    class="p-4 lg:text-lg text-sm font-bold text-white text-center bg-rose-900 uppercase"
                                     x-text="column.title">
                                 </div>
                                 <!-- ROW 1 -->
